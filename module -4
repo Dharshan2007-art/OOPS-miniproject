@@ -1,0 +1,17 @@
+package network;
+
+import java.io.*;
+import java.net.*;
+
+public class CourierClient {
+    public static String getCourierInfo(String id) {
+        try (Socket socket = new Socket("localhost", 5000);
+             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+            out.println(id);
+            return in.readLine();
+        } catch (Exception e) {
+            return "Error: " + e;
+        }
+    }
+}
