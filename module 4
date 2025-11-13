@@ -1,0 +1,34 @@
+package network;
+
+import core.Courier;
+import data.DataHandler;
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+public class CourierServer {
+    public static void main(String[] args) throws Exception {
+        List<Courier> couriers = DataHandler.loadCouriers("courierData.txt");
+        ServerSocket server = new ServerSocket(5000);
+        System.out.println("Server started on port 5000");
+
+        while (true) {
+            Socket socket = server.accept();
+            new Thread(() -> {
+                try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                     PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
+                    String id = in.readLine();
+                    Courier found = null;
+                    for (Courier c : couriers)
+                        if (c.getId().equalsIgnoreCase(id)) found = c;
+                    if (found != null)
+                        out.println(found.toString());
+                    else
+                        out.println("Courier not found!");
+                } catch (Exception e) {
+                    System.out.println("Error: " + e);
+                }
+            }).start();
+        }
+    }
+}
