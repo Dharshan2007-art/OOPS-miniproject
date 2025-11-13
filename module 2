@@ -1,0 +1,23 @@
+package data;
+
+import core.Courier;
+import java.io.*;
+import java.util.*;
+
+public class DataHandler {
+    public static List<Courier> loadCouriers(String fileName) {
+        List<Courier> list = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] p = line.split("\\|");
+                if (p.length == 3) {
+                    list.add(new Courier(p[0], p[1], Double.parseDouble(p[2])));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error reading data: " + e);
+        }
+        return list;
+    }
+}
