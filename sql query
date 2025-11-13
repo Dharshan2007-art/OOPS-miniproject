@@ -1,0 +1,18 @@
+CREATE DATABASE courierdb;
+USE courierdb;
+
+CREATE TABLE couriers (
+    courier_id VARCHAR(10) PRIMARY KEY,
+    sender_name VARCHAR(50),
+    receiver_name VARCHAR(50),
+    source_city VARCHAR(50),
+    destination_city VARCHAR(50),
+    weight DOUBLE,
+    status VARCHAR(30)
+);
+
+INSERT INTO couriers VALUES
+('C101', 'Arjun', 'Vignesh', 'Chennai', 'Coimbatore', 2.5, 'Delivered'),
+('C102', 'Rahul', 'Dharshan', 'Madurai', 'Trichy', 3.0, 'In Transit'),
+('C103', 'Sanjay', 'Pranav', 'Bangalore', 'Chennai', 1.2, 'Dispatched'),
+('C104', 'Anand', 'Krish', 'Chennai', 'Hyderabad', 4.8, 'Pending');
