@@ -1,0 +1,42 @@
+package gui;
+
+import network.CourierClient;
+import processing.DeliveryThread;
+import core.Courier;
+import javax.swing.*;
+import java.awt.*;
+
+public class CourierGUI {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Courier Tracking System");
+        frame.setSize(400, 250);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new FlowLayout());
+
+        JLabel label = new JLabel("Enter Courier ID:");
+        JTextField idField = new JTextField(15);
+        JTextArea resultArea = new JTextArea(5, 30);
+        JButton trackButton = new JButton("Track");
+        JButton simulateButton = new JButton("Simulate Delivery");
+
+        frame.add(label);
+        frame.add(idField);
+        frame.add(trackButton);
+        frame.add(simulateButton);
+        frame.add(new JScrollPane(resultArea));
+
+        trackButton.addActionListener(e -> {
+            String id = idField.getText().trim();
+            String result = CourierClient.getCourierInfo(id);
+            resultArea.setText(result);
+        });
+
+        simulateButton.addActionListener(e -> {
+            Courier c = new Courier("C101", "Dispatched", 2.5);
+            DeliveryThread d = new DeliveryThread(c);
+            d.start();
+        });
+
+        frame.setVisible(true);
+    }
+}
