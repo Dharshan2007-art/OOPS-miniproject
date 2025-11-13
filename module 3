@@ -1,0 +1,23 @@
+package processing;
+
+import core.Courier;
+
+public class DeliveryThread extends Thread {
+    private Courier courier;
+
+    public DeliveryThread(Courier courier) {
+        this.courier = courier;
+    }
+
+    public void run() {
+        try {
+            System.out.println("Starting delivery for " + courier.getId());
+            courier.setStatus("In Transit");
+            Thread.sleep(2000);
+            courier.setStatus("Delivered");
+            System.out.println("Delivered: " + courier);
+        } catch (InterruptedException e) {
+            System.out.println("Delivery interrupted.");
+        }
+    }
+}
