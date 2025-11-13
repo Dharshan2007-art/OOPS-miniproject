@@ -1,1 +1,27 @@
-# OOPS-miniproject
+# OOPS-miniproject module-1
+package core;
+
+public class Courier {
+    private String id;
+    private String status;
+    private double weight;
+
+    public Courier(String id, String status, double weight) {
+        this.id = id;
+        this.status = status;
+        this.weight = weight;
+    }
+
+    public String getId() { return id; }
+    public String getStatus() { return status; }
+    public double getWeight() { return weight; }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Courier ID: " + id + ", Status: " + status + ", Weight: " + weight + " kg";
+    }
+}
